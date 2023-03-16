@@ -35,12 +35,13 @@ export function Home() {
           ItemSeparatorComponent={() => <View style={{ padding: 4 }} />}
           showsHorizontalScrollIndicator={false}
         />
-
         <View style={homeStyles.searchBarWrapper}>
           <TextInput
             placeholder="Seach for a specific game"
             placeholderTextColor={"#E5E5E5"}
             style={homeStyles.searchBar}
+            value={hook.searchFilter}
+            onChangeText={hook.setSearchFilter}
           />
           <TouchableOpacity
             style={{
@@ -48,6 +49,7 @@ export function Home() {
               position: "absolute",
               right: 10,
             }}
+            onPress={() => hook.searchGame()}
           >
             <MagnifyingGlass size={32} color="#e5e5e5" />
           </TouchableOpacity>

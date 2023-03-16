@@ -4,6 +4,7 @@ import { getAllGames } from "../../api/getGames";
 
 export function useHome() {
   const [games, setGames] = useState<IGames[]>([]);
+  const [searchFilter, setSearchFilter] = useState("");
   const gameTags = [
     {
       tagTitle: "all",
@@ -192,12 +193,32 @@ export function useHome() {
     const data = await getAllGames();
     setGames(data);
   }
+
+  async function searchGame() {
+    const wantedGame = games.filter((game) =>
+      game.title.includes(searchFilter)
+    );
+    if (searchFilter.trim() && wantedGame) {
+      setGames(wantedGame);
+    } else {
+      getApiGames();
+    }
+  }
   useEffect(() => {
     getApiGames();
   }, []);
+
+  useEffect(() => {
+    if (!searchFilter.trim()) {
+      searchGame();
+    }
+  }, [searchFilter]);
   return {
     gameTags,
     games,
     setGames,
+    searchFilter,
+    setSearchFilter,
+    searchGame,
   };
 }
