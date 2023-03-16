@@ -59,16 +59,17 @@ export function Home() {
           numColumns={2}
           ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
           columnWrapperStyle={{ gap: 20 }}
-          data={["", "", "", "", "", "", "", "", "", "", "", ""]}
+          data={hook.games}
           renderItem={({ item }) => (
             <GameCard
-              gamePlataform="Pc"
-              gameTitle="Overwatch 2"
+              gamePlataform={item.platform}
+              gameTitle={item.title}
               imageSrc={{
-                uri: "https://www.freetogame.com/g/540/thumbnail.jpg",
+                uri: item.thumbnail,
               }}
             />
           )}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </View>

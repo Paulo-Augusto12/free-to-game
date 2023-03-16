@@ -1,4 +1,9 @@
+import { useEffect, useState } from "react";
+import { IGames } from "../../api/interfaces/IGame";
+import { getAllGames } from "../../api/getGames";
+
 export function useHome() {
+  const [games, setGames] = useState<IGames[]>([]);
   const gameTags = [
     {
       tagTitle: "all",
@@ -183,7 +188,16 @@ export function useHome() {
     },
   ];
 
+  async function getApiGames() {
+    const data = await getAllGames();
+    setGames(data);
+  }
+  useEffect(() => {
+    getApiGames();
+  }, []);
   return {
     gameTags,
+    games,
+    setGames,
   };
 }
