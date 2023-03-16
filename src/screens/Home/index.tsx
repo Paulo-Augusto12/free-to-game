@@ -9,6 +9,7 @@ import {
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
 import { MagnifyingGlass } from "phosphor-react-native";
+import { GameCard } from "../../components/gameCard";
 
 export function Home() {
   const hook = useHome();
@@ -32,6 +33,7 @@ export function Home() {
           )}
           horizontal
           ItemSeparatorComponent={() => <View style={{ padding: 4 }} />}
+          showsHorizontalScrollIndicator={false}
         />
 
         <View style={homeStyles.searchBarWrapper}>
@@ -50,6 +52,24 @@ export function Home() {
             <MagnifyingGlass size={32} color="#e5e5e5" />
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <FlatList
+          style={{ maxHeight: 400 }}
+          numColumns={2}
+          ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
+          columnWrapperStyle={{ gap: 20 }}
+          data={["", "", "", "", "", "", "", "", "", "", "", ""]}
+          renderItem={({ item }) => (
+            <GameCard
+              gamePlataform="Pc"
+              gameTitle="Overwatch 2"
+              imageSrc={{
+                uri: "https://www.freetogame.com/g/540/thumbnail.jpg",
+              }}
+            />
+          )}
+        />
       </View>
     </View>
   );
