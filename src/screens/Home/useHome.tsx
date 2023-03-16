@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { IGames } from "../../api/interfaces/IGame";
 import { getAllGames } from "../../api/getGames";
+import { GetGameByGenre } from "../../api/getGameByGenre";
 
 export function useHome() {
   const [games, setGames] = useState<IGames[]>([]);
   const [searchFilter, setSearchFilter] = useState("");
+  const [gameGenre, setGameGenre] = useState("");
+  const [status, setStatus] = useState<string | undefined>("");
   const gameTags = [
     {
       tagTitle: "all",
@@ -191,7 +194,12 @@ export function useHome() {
 
   async function getApiGames() {
     const data = await getAllGames();
-    setGames(data);
+    if (data) {
+      setStatus(data.statusText);
+      if (!status?.trim()) {
+        setGames(data.data);
+      }
+    }
   }
 
   async function searchGame() {
@@ -204,15 +212,36 @@ export function useHome() {
       getApiGames();
     }
   }
+
+  async function searchGameByCategory() {
+    const response = await GetGameByGenre(gameGenre);
+    if (response) {
+      setStatus(response.statusText);
+      if (!status?.trim()) {
+        setGames(response.data);
+      }
+    }
+  }
+
   useEffect(() => {
     getApiGames();
   }, []);
+
+  useEffect(() => {
+    if (gameGenre.trim()) {
+      searchGameByCategory();
+    }
+    if (gameGenre.trim() === "all") {
+      getApiGames();
+    }
+  }, [gameGenre]);
 
   useEffect(() => {
     if (!searchFilter.trim()) {
       searchGame();
     }
   }, [searchFilter]);
+
   return {
     gameTags,
     games,
@@ -220,5 +249,9 @@ export function useHome() {
     searchFilter,
     setSearchFilter,
     searchGame,
+    searchGameByCategory,
+    setGameGenre,
+    status,
+    setStatus,
   };
 }

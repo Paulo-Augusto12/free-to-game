@@ -6,8 +6,8 @@ export async function getAllGames() {
 
     const response = await axios.get(baseUrl);
 
-    console.log("Código de resposta : ", response.status);
-    return response.data;
+    console.log("Código de resposta : ", response.statusText);
+    return response;
   } catch (err) {
     console.log("Erro na requisição para todos os jogos : ", err);
   }

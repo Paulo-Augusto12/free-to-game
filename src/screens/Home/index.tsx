@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
@@ -25,7 +26,13 @@ export function Home() {
         <FlatList
           data={hook.gameTags}
           renderItem={({ item }) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                hook.setStatus("");
+                hook.setGameGenre(item.tagTitle.toLowerCase());
+                hook.searchGameByCategory();
+              }}
+            >
               <View style={homeStyles.tagsWrapper}>
                 <Text style={homeStyles.tagText}>{item.tagTitle}</Text>
               </View>
@@ -55,25 +62,30 @@ export function Home() {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ marginTop: 10 }}>
-        <FlatList
-          style={{ maxHeight: 400 }}
-          numColumns={2}
-          ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
-          columnWrapperStyle={{ gap: 20 }}
-          data={hook.games}
-          renderItem={({ item }) => (
-            <GameCard
-              gamePlataform={item.platform}
-              gameTitle={item.title}
-              imageSrc={{
-                uri: item.thumbnail,
-              }}
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+
+      {hook.status !== undefined ? (
+        <ActivityIndicator size="large" color="#133C95" />
+      ) : (
+        <View style={{ marginTop: 10 }}>
+          <FlatList
+            style={{ maxHeight: 400 }}
+            numColumns={2}
+            ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
+            columnWrapperStyle={{ gap: 20 }}
+            data={hook.games}
+            renderItem={({ item }) => (
+              <GameCard
+                gamePlataform={item.platform}
+                gameTitle={item.title}
+                imageSrc={{
+                  uri: item.thumbnail,
+                }}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      )}
     </View>
   );
 }
