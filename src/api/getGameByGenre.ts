@@ -10,7 +10,7 @@ export async function GetGameByGenre(genre: string) {
         "Código de status da rota de requisição por categoria: ",
         response.status
       );
-      return response ;
+      return response;
     }
   } catch (err) {
     console.log("Erro durante a  requisição por categoria", err);

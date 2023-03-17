@@ -24,7 +24,7 @@ export function Home() {
       </View>
       <View style={homeStyles.filterContainer}>
         <FlatList
-          data={hook.gameTags}
+          data={hook.categories}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
