@@ -88,7 +88,6 @@ export function Home({ navigation }: Props) {
                     navigation.navigate("about", {
                       selectedGame: hook.selectedGame,
                       gameGenre: hook.selectedGame.genre,
-                      relatedGames: hook.games,
                     });
                   }
                 }}

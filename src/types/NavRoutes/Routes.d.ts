@@ -7,7 +7,7 @@ export type RootStackParamList = {
     selectedGame: IGames;
     gameGenre: string;
 
-    relatedGames: IGames[];
+    // relatedGames: IGames[];
   };
 };
 
