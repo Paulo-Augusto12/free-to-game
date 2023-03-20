@@ -16,9 +16,9 @@ export const homeStyles = StyleSheet.create({
     backgroundColor: "#142E68",
     borderRadius: 10,
     height: 200,
+    overflow: "hidden",
     marginTop: 70,
   },
-
   headerTitle: {
     color: "#E5E5E5",
     fontWeight: "800",
@@ -57,6 +57,5 @@ export const homeStyles = StyleSheet.create({
   searchBarWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    // borderBottomWidth: 1,
   },
 });

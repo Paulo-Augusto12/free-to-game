@@ -6,6 +6,7 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
@@ -17,6 +18,7 @@ export function Home() {
   return (
     <View style={homeStyles.container}>
       <View style={homeStyles.headerContainer}>
+        <ImageBackground source={{}}></ImageBackground>
         <Text style={homeStyles.headerTitle}>Free Games</Text>
         <Text style={homeStyles.headerDescription}>
           Check out some free games that you might enjoy
