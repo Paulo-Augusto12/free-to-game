@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { IGames } from "../../api/interfaces/IGame";
 import { getAllGames } from "../../api/getGames";
 import { GetGameByGenre } from "../../api/getGameByGenre";
-import { gameTags } from "../../api/apiTags";
 
 export function useHome() {
   const [games, setGames] = useState<IGames[]>([]);
