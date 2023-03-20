@@ -6,21 +6,19 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
-  ImageBackground,
 } from "react-native";
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
 import { MagnifyingGlass } from "phosphor-react-native";
 import { GameCard } from "../../components/gameCard";
-import { useNavigation } from "@react-navigation/native";
 import { Props } from "../../types/NavRoutes/Routes";
+import { gameTags } from "../../api/apiTags";
 
 export function Home({ navigation }: Props) {
   const hook = useHome();
   return (
     <View style={homeStyles.container}>
       <View style={homeStyles.headerContainer}>
-        <ImageBackground source={{}}></ImageBackground>
         <Text style={homeStyles.headerTitle}>Free Games</Text>
         <Text style={homeStyles.headerDescription}>
           Check out some free games that you might enjoy
@@ -28,7 +26,7 @@ export function Home({ navigation }: Props) {
       </View>
       <View style={homeStyles.filterContainer}>
         <FlatList
-          data={hook.categories}
+          data={gameTags}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {

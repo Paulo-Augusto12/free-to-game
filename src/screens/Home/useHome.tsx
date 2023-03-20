@@ -7,11 +7,9 @@ import { gameTags } from "../../api/apiTags";
 export function useHome() {
   const [games, setGames] = useState<IGames[]>([]);
   const [selectedGame, setSelectedGame] = useState<IGames>();
-  const [randomGameImage, setRandomGameImage] = useState({ uri: "" });
   const [searchFilter, setSearchFilter] = useState("");
   const [gameGenre, setGameGenre] = useState("");
   const [status, setStatus] = useState<string | undefined>("");
-  const categories = gameTags;
 
   async function getApiGames() {
     const data = await getAllGames();
@@ -20,16 +18,6 @@ export function useHome() {
       if (!status?.trim()) {
         setGames(data.data);
       }
-    }
-  }
-
-  async function getARandomImage() {
-    if (games.length) {
-      const randomNumber = Math.floor(Math.random() * games.length);
-
-      const randomItem = games[randomNumber];
-
-      setRandomGameImage({ uri: randomItem.thumbnail });
     }
   }
 
@@ -54,23 +42,11 @@ export function useHome() {
     }
   }
 
-  // function getRelatedGames(selectedGameGenre: string) {
-  //   const genre = games.filter((games) => games.genre === selectedGameGenre);
-
-  //   if (genre) {
-  //     setGames(genre);
-  //   }
-  // }
-
   useEffect(() => {
     getApiGames();
+    setSelectedGame({} as IGames);
   }, []);
 
-  useEffect(() => {
-    if (games.length >= 1) {
-      getARandomImage();
-    }
-  }, [games]);
   useEffect(() => {
     if (gameGenre.trim()) {
       searchGameByCategory();
@@ -86,16 +62,8 @@ export function useHome() {
     }
   }, [searchFilter]);
 
-  // useEffect(() => {
-  //   if (selectedGame) {
-  //     getRelatedGames(selectedGame.genre);
-  //   }
-  // }, [selectedGame]);
-
   return {
-    categories,
     games,
-    randomGameImage,
     setGames,
     searchFilter,
     setSearchFilter,
