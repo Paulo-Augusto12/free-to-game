@@ -6,6 +6,7 @@ import { gameTags } from "../../api/apiTags";
 
 export function useHome() {
   const [games, setGames] = useState<IGames[]>([]);
+  const [selectedGame, setSelectedGame] = useState<IGames>();
   const [randomGameImage, setRandomGameImage] = useState({ uri: "" });
   const [searchFilter, setSearchFilter] = useState("");
   const [gameGenre, setGameGenre] = useState("");
@@ -53,6 +54,14 @@ export function useHome() {
     }
   }
 
+  // function getRelatedGames(selectedGameGenre: string) {
+  //   const genre = games.filter((games) => games.genre === selectedGameGenre);
+
+  //   if (genre) {
+  //     setGames(genre);
+  //   }
+  // }
+
   useEffect(() => {
     getApiGames();
   }, []);
@@ -77,6 +86,12 @@ export function useHome() {
     }
   }, [searchFilter]);
 
+  // useEffect(() => {
+  //   if (selectedGame) {
+  //     getRelatedGames(selectedGame.genre);
+  //   }
+  // }, [selectedGame]);
+
   return {
     categories,
     games,
@@ -89,5 +104,7 @@ export function useHome() {
     setGameGenre,
     status,
     setStatus,
+    selectedGame,
+    setSelectedGame,
   };
 }

@@ -12,8 +12,10 @@ import { homeStyles } from "./style";
 import { useHome } from "./useHome";
 import { MagnifyingGlass } from "phosphor-react-native";
 import { GameCard } from "../../components/gameCard";
+import { useNavigation } from "@react-navigation/native";
+import { Props } from "../../types/NavRoutes/Routes";
 
-export function Home() {
+export function Home({ navigation }: Props) {
   const hook = useHome();
   return (
     <View style={homeStyles.container}>
@@ -81,6 +83,16 @@ export function Home() {
                 gameTitle={item.title}
                 imageSrc={{
                   uri: item.thumbnail,
+                }}
+                navigateAction={() => {
+                  hook.setSelectedGame(item);
+                  if (hook.selectedGame !== undefined) {
+                    navigation.navigate("about", {
+                      selectedGame: hook.selectedGame,
+                      gameGenre: hook.selectedGame.genre,
+                      relatedGames: hook.games,
+                    });
+                  }
                 }}
               />
             )}

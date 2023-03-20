@@ -10,14 +10,16 @@ interface IGameCardProps {
   imageSrc: ImageSourcePropType;
   gameTitle: string;
   gamePlataform: string;
+  navigateAction: () => void;
 }
 export function GameCard({
   imageSrc,
   gameTitle,
   gamePlataform,
+  navigateAction,
 }: IGameCardProps) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => navigateAction()}>
       <View style={styles.imageWrapper}>
         <Image source={imageSrc} style={{ height: 117 }} />
         <View style={styles.gameInfoWrapper}>
