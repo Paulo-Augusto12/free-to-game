@@ -19,7 +19,7 @@ import { ExternalLinkCard } from "./components";
 
 // Icons
 
-import { ArrowLeft, LinkSimple } from "phosphor-react-native";
+import { ArrowLeft, LinkSimple, UsersThree } from "phosphor-react-native";
 
 //
 
@@ -46,7 +46,7 @@ export function About({ route }: AboutGameProps) {
       {states.gameRequestLoading ? (
         <ActivityIndicator />
       ) : (
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", gap: 48 }}>
           <View
             style={{
               alignItems: "center",
@@ -93,10 +93,16 @@ export function About({ route }: AboutGameProps) {
             </View>
           </View>
 
-          <ExternalLinkCard
-            icon={<LinkSimple size={26} color="#E5E5E5" />}
-            title="You can see the official page of this game here"
-          />
+          <View style={{ flexDirection: "column", gap: 18, width: "100%" }}>
+            <ExternalLinkCard
+              icon={<LinkSimple size={32} color="#E5E5E5" />}
+              title="You can see the official page of this game here"
+            />
+            <ExternalLinkCard
+              icon={<UsersThree size={32} color="#E5E5E5" />}
+              title="Check out some other players opinion"
+            />
+          </View>
         </View>
       )}
     </View>

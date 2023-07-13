@@ -11,8 +11,8 @@ export function ExternalLinkCard({ icon, title }: IExternalLinkCardProps) {
         borderRadius: 8,
         alignItems: "center",
         backgroundColor: "#142E68",
-        minHeight: 92,
-        padding: 16,
+        minHeight: 122,
+        padding: 24,
         width: "100%",
       }}
     >
