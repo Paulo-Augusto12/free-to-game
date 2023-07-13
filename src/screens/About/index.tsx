@@ -1,44 +1,58 @@
 import React, { useEffect } from "react";
+import { AboutGameProps } from "../../routes/stack.routes";
+
 import {
   View,
-  Text,
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
+  Text,
 } from "react-native";
+
+// Components
+
 import { GameCard } from "../../components/gameCard";
-import { Props } from "../../types/NavRoutes/Routes";
-import { styles } from "./style";
-import { useAbout } from "./useAbout";
+
+//
+
+// Icons
+
 import { ArrowLeft } from "phosphor-react-native";
 
-export function About({ navigation, route }: Props) {
-  const hook = useAbout();
+//
 
-  useEffect(()=>{
-    hook.getGames(route.params.gameGenre)
-  },[])
+import { styles } from "./style";
+import { useAbout } from "./useAbout";
+
+export function About({ route }: AboutGameProps) {
+  const { id, name } = route.params;
+
+  const { actions, states } = useAbout();
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          hook.setGames([]);
-          navigation.goBack();
+          states.setGames([]);
+          actions.goBack();
         }}
       >
         <View style={styles.backIcon}>
           <ArrowLeft size={32} color="#E5E5E5" />
         </View>
       </TouchableOpacity>
-      <View>
-        {hook.games.length ? (
+      <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', borderRadius: 8, width: '100%'}}>
+
+        <Text style={{ color: "white", fontSize: 40 }}>{name}</Text>
+        </View>
+        {/* {states.games.length ? (
           <FlatList
             style={{ maxHeight: 400 }}
             numColumns={2}
             ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
             columnWrapperStyle={{ gap: 20 }}
-            data={hook.games}
+            data={states.games}
             renderItem={({ item }) => (
               <GameCard
                 gamePlataform={item.platform}
@@ -58,7 +72,7 @@ export function About({ navigation, route }: Props) {
             color="#d7d7"
             style={{ alignSelf: "center" }}
           />
-        )}
+        )} */}
       </View>
     </View>
   );

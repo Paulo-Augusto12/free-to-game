@@ -5,7 +5,14 @@ import {
 } from "@react-navigation/native-stack";
 import { StackNavigationTypes } from "./stack.types";
 import { NavigationContainer } from "@react-navigation/native";
+
+
+// Screens
+
 import { Home } from "../screens/Home";
+import { About } from "../screens/About";
+
+//
 
 export type StackTypes = NativeStackNavigationProp<StackNavigationTypes>;
 
@@ -22,7 +29,9 @@ export default function StackRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="about" component={Home} options={disableHeader} />
+        <Stack.Screen name="home" component={Home} options={disableHeader} />
+
+        <Stack.Screen name="about" component={About} options={disableHeader}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

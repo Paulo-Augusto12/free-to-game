@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { GetGameByGenre } from "../../api/getGameByGenre";
 import { Game } from "../../domain/useCases/GamesUseCases/models/Game";
 import { GAMES_USE_CASES } from "../../di";
+import { useNavigation } from "@react-navigation/native";
+import { StackTypes } from "../../routes/stack.routes";
 
 export function useHome() {
   const [games, setGames] = useState<Game[]>([]);
@@ -10,6 +12,8 @@ export function useHome() {
   const [gameGenre, setGameGenre] = useState("");
   const [status, setStatus] = useState<string | undefined>("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigation = useNavigation<StackTypes>();
 
   async function getApiGames() {
     setIsLoading(true);
@@ -72,17 +76,24 @@ export function useHome() {
   }, [searchFilter]);
 
   return {
-    games,
-    setGames,
-    searchFilter,
-    setSearchFilter,
-    searchGame,
-    searchGameByCategory,
-    setGameGenre,
-    status,
-    setStatus,
-    selectedGame,
-    setSelectedGame,
-    isLoading,
+    states: {
+      games,
+      setGames,
+      searchFilter,
+      setSearchFilter,
+      setGameGenre,
+      status,
+      setStatus,
+      selectedGame,
+      setSelectedGame,
+      isLoading,
+    },
+    actions: {
+      searchGame,
+      searchGameByCategory,
+      navigate: (id: number, name: string) => {
+        navigation.navigate("about", { id, name });
+      },
+    },
   };
 }

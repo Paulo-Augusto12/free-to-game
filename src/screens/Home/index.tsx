@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, FlatList, ActivityIndicator } from "react-native";
 
 // Components
 
@@ -18,7 +13,7 @@ import { GameCard } from "../../components/gameCard";
 import { gameTags } from "../../api/apiTags";
 
 export function Home() {
-  const hook = useHome();
+  const { actions, states } = useHome();
   return (
     <View style={homeStyles.container}>
       <View style={homeStyles.headerContainer}>
@@ -31,19 +26,19 @@ export function Home() {
         <FilterTags
           gameTags={gameTags}
           onTagPress={(item) => {
-            hook.setStatus("");
-            hook.setGameGenre(item);
-            hook.searchGameByCategory();
+            states.setStatus("");
+            states.setGameGenre(item);
+            actions.searchGameByCategory();
           }}
         />
         <SearchBar
-          searchValue={hook.searchFilter}
-          onChangeText={hook.setSearchFilter}
-          onSearchIconPress={() => hook.searchGame()}
+          searchValue={states.searchFilter}
+          onChangeText={states.setSearchFilter}
+          onSearchIconPress={() => actions.searchGame()}
         />
       </View>
 
-      {hook.isLoading ? (
+      {states.isLoading ? (
         <ActivityIndicator size="large" color="#133C95" />
       ) : (
         <View style={{ marginTop: 10 }}>
@@ -52,7 +47,7 @@ export function Home() {
             numColumns={2}
             ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
             columnWrapperStyle={{ gap: 20 }}
-            data={hook.games}
+            data={states.games}
             renderItem={({ item }) => (
               <GameCard
                 gamePlataform={item.platform}
@@ -60,7 +55,9 @@ export function Home() {
                 imageSrc={{
                   uri: item.thumbnail,
                 }}
-                navigateAction={() => {}}
+                navigateAction={() => {
+                  actions.navigate(item.id, item.title);
+                }}
               />
             )}
             showsVerticalScrollIndicator={false}
