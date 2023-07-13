@@ -1,4 +1,10 @@
+import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import StackRoutes from "./src/routes/stack.routes";
 export default function App() {
-  return <StackRoutes />;
+  return (
+  <>
+  <ExpoStatusBar style="light"/>
+  <StackRoutes />
+  </>
+  );
 }
