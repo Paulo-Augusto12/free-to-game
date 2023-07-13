@@ -15,10 +15,9 @@ import { FilterTags, SearchBar } from "./components";
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
 import { GameCard } from "../../components/gameCard";
-import { Props } from "../../types/NavRoutes/Routes";
 import { gameTags } from "../../api/apiTags";
 
-export function Home({ navigation }: Props) {
+export function Home() {
   const hook = useHome();
   return (
     <View style={homeStyles.container}>
