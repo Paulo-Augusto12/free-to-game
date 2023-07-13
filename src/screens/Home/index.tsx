@@ -7,6 +7,13 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
+
+// Components
+
+import { FilterTags } from "./components";
+
+//
+
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
 import { MagnifyingGlass } from "phosphor-react-native";
@@ -25,24 +32,13 @@ export function Home({ navigation }: Props) {
         </Text>
       </View>
       <View style={homeStyles.filterContainer}>
-        <FlatList
-          data={gameTags}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                hook.setStatus("");
-                hook.setGameGenre(item.tagTitle.toLowerCase());
-                hook.searchGameByCategory();
-              }}
-            >
-              <View style={homeStyles.tagsWrapper}>
-                <Text style={homeStyles.tagText}>{item.tagTitle}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          horizontal
-          ItemSeparatorComponent={() => <View style={{ padding: 4 }} />}
-          showsHorizontalScrollIndicator={false}
+        <FilterTags
+          gameTags={gameTags}
+          onTagPress={(item) => {
+            hook.setStatus("");
+            hook.setGameGenre(item);
+            hook.searchGameByCategory();
+          }}
         />
         <View style={homeStyles.searchBarWrapper}>
           <TextInput
@@ -65,7 +61,7 @@ export function Home({ navigation }: Props) {
         </View>
       </View>
 
-      {hook.status !== undefined ? (
+      {hook.isLoading ? (
         <ActivityIndicator size="large" color="#133C95" />
       ) : (
         <View style={{ marginTop: 10 }}>
@@ -82,15 +78,7 @@ export function Home({ navigation }: Props) {
                 imageSrc={{
                   uri: item.thumbnail,
                 }}
-                navigateAction={() => {
-                  hook.setSelectedGame(item);
-                  if (hook.selectedGame !== undefined) {
-                    navigation.navigate("about", {
-                      selectedGame: hook.selectedGame,
-                      gameGenre: hook.selectedGame.genre,
-                    });
-                  }
-                }}
+                navigateAction={() => {}}
               />
             )}
             showsVerticalScrollIndicator={false}
