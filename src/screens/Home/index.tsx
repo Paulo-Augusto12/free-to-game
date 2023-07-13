@@ -10,7 +10,7 @@ import {
 
 // Components
 
-import { FilterTags } from "./components";
+import { FilterTags, SearchBar } from "./components";
 
 //
 
@@ -40,25 +40,11 @@ export function Home({ navigation }: Props) {
             hook.searchGameByCategory();
           }}
         />
-        <View style={homeStyles.searchBarWrapper}>
-          <TextInput
-            placeholder="Seach for a specific game"
-            placeholderTextColor={"#E5E5E5"}
-            style={homeStyles.searchBar}
-            value={hook.searchFilter}
-            onChangeText={hook.setSearchFilter}
-          />
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#133C95",
-              position: "absolute",
-              right: 10,
-            }}
-            onPress={() => hook.searchGame()}
-          >
-            <MagnifyingGlass size={32} color="#e5e5e5" />
-          </TouchableOpacity>
-        </View>
+        <SearchBar
+          searchValue={hook.searchFilter}
+          onChangeText={hook.setSearchFilter}
+          onSearchIconPress={() => hook.searchGame()}
+        />
       </View>
 
       {hook.isLoading ? (

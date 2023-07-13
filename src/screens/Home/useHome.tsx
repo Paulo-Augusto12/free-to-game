@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { IGames } from "../../api/interfaces/IGame";
 import { GetGameByGenre } from "../../api/getGameByGenre";
 import { Game } from "../../domain/useCases/GamesUseCases/models/Game";
 import { GAMES_USE_CASES } from "../../di";
@@ -11,17 +10,16 @@ export function useHome() {
   const [gameGenre, setGameGenre] = useState("");
   const [status, setStatus] = useState<string | undefined>("");
   const [isLoading, setIsLoading] = useState(false);
-  
-  
+
   async function getApiGames() {
     setIsLoading(true);
     try {
       const data = await GAMES_USE_CASES.getAllGames.execute();
-      setGames(data)
+      setGames(data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -37,12 +35,19 @@ export function useHome() {
   }
 
   async function searchGameByCategory() {
-    const response = await GetGameByGenre(gameGenre);
-    if (response) {
-      setStatus(response.statusText);
-      if (!status?.trim()) {
-        setGames(response.data);
+    setIsLoading(true);
+    try {
+      const response = await GetGameByGenre(gameGenre);
+      if (response) {
+        setStatus(response.statusText);
+        if (!status?.trim()) {
+          setGames(response.data);
+        }
       }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -78,6 +83,6 @@ export function useHome() {
     setStatus,
     selectedGame,
     setSelectedGame,
-    isLoading
+    isLoading,
   };
 }
