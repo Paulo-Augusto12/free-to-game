@@ -43,7 +43,7 @@ export function useHome() {
 
   useEffect(() => {
     getApiGames();
-    setSelectedGame({} as IGames);
+    console.log(selectedGame);
   }, []);
 
   useEffect(() => {
