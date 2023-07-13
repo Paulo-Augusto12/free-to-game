@@ -7,17 +7,19 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Text,
+  Image,
 } from "react-native";
 
 // Components
 
 import { GameCard } from "../../components/gameCard";
+import { ExternalLinkCard } from "./components";
 
 //
 
 // Icons
 
-import { ArrowLeft } from "phosphor-react-native";
+import { ArrowLeft, LinkSimple } from "phosphor-react-native";
 
 //
 
@@ -27,7 +29,7 @@ import { useAbout } from "./useAbout";
 export function About({ route }: AboutGameProps) {
   const { id, name } = route.params;
 
-  const { actions, states } = useAbout();
+  const { actions, states, selectedGame } = useAbout({ gameId: id });
 
   return (
     <View style={styles.container}>
@@ -41,11 +43,62 @@ export function About({ route }: AboutGameProps) {
           <ArrowLeft size={32} color="#E5E5E5" />
         </View>
       </TouchableOpacity>
-      <View style={{ alignItems: "center" }}>
-        <View style={{ alignItems: "center", borderRadius: 8, width: "100%" }}>
-          <Text style={{ color: "white", fontSize: 40 }}>{name}</Text>
+      {states.gameRequestLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <View style={{ alignItems: "center" }}>
+          <View
+            style={{
+              alignItems: "center",
+              borderRadius: 8,
+              width: "100%",
+              height: 250,
+            }}
+          >
+            <Image
+              source={{ uri: selectedGame.thumbnail }}
+              style={{
+                width: "100%",
+                height: 250,
+                opacity: 0.5,
+                borderRadius: 8,
+              }}
+            />
+            <View
+              style={{
+                position: "absolute",
+                bottom: 60,
+                flexDirection: "column",
+                justifyContent: "space-between",
+                padding: 6,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 32,
+                  fontWeight: "bold",
+                }}
+              >
+                {name}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                }}
+              >
+                {selectedGame.shortDescription}
+              </Text>
+            </View>
+          </View>
+
+          <ExternalLinkCard
+            icon={<LinkSimple size={26} color="#E5E5E5" />}
+            title="You can see the official page of this game here"
+          />
         </View>
-      </View>
+      )}
     </View>
   );
 }
