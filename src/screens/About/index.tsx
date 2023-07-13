@@ -41,38 +41,10 @@ export function About({ route }: AboutGameProps) {
           <ArrowLeft size={32} color="#E5E5E5" />
         </View>
       </TouchableOpacity>
-      <View style={{alignItems: 'center'}}>
-        <View style={{alignItems: 'center', borderRadius: 8, width: '100%'}}>
-
-        <Text style={{ color: "white", fontSize: 40 }}>{name}</Text>
+      <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", borderRadius: 8, width: "100%" }}>
+          <Text style={{ color: "white", fontSize: 40 }}>{name}</Text>
         </View>
-        {/* {states.games.length ? (
-          <FlatList
-            style={{ maxHeight: 400 }}
-            numColumns={2}
-            ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
-            columnWrapperStyle={{ gap: 20 }}
-            data={states.games}
-            renderItem={({ item }) => (
-              <GameCard
-                gamePlataform={item.platform}
-                gameTitle={item.title}
-                imageSrc={{
-                  uri: item.thumbnail,
-                }}
-                navigateAction={() => {}}
-                key={item.id}
-              />
-            )}
-            showsVerticalScrollIndicator={false}
-          />
-        ) : (
-          <ActivityIndicator
-            size={"large"}
-            color="#d7d7"
-            style={{ alignSelf: "center" }}
-          />
-        )} */}
       </View>
     </View>
   );
