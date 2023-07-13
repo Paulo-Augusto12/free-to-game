@@ -2,8 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
-  TextInput,
   FlatList,
   ActivityIndicator,
 } from "react-native";
@@ -16,7 +14,6 @@ import { FilterTags, SearchBar } from "./components";
 
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
-import { MagnifyingGlass } from "phosphor-react-native";
 import { GameCard } from "../../components/gameCard";
 import { Props } from "../../types/NavRoutes/Routes";
 import { gameTags } from "../../api/apiTags";
