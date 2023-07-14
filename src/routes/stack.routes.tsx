@@ -6,7 +6,6 @@ import {
 import { StackNavigationTypes } from "./stack.types";
 import { NavigationContainer } from "@react-navigation/native";
 
-
 // Screens
 
 import { Home } from "../screens/Home";
@@ -31,7 +30,7 @@ export default function StackRoutes() {
       <Stack.Navigator>
         <Stack.Screen name="home" component={Home} options={disableHeader} />
 
-        <Stack.Screen name="about" component={About} options={disableHeader}/>
+        <Stack.Screen name="about" component={About} options={disableHeader} />
       </Stack.Navigator>
     </NavigationContainer>
   );
