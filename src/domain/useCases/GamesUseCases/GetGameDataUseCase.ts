@@ -48,7 +48,7 @@ export class GetGameDataUseCase implements IGetGameDataUseCase {
           data.minrequirements.processor,
           data.minrequirements.memory,
           data.minrequirements.storage,
-          data.minrequirements.storage
+          data.minrequirements.graphics
         )
       );
     } catch (err) {
