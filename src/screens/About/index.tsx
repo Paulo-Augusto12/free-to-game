@@ -13,7 +13,7 @@ import {
 // Components
 
 import { GameCard } from "../../components/gameCard";
-import { ExternalLinkCard } from "./components";
+import { ExternalLinkCard, Links } from "./components";
 
 //
 
@@ -91,18 +91,7 @@ export function About({ route }: AboutGameProps) {
               </Text>
             </View>
           </View>
-
-          <View style={{ flexDirection: "column", gap: 18, width: "100%" }}>
-            {elements.links.map(({ icon, onPress, text }) => (
-              <TouchableOpacity
-                onPress={() => {
-                  onPress();
-                }}
-              >
-                <ExternalLinkCard title={text} icon={icon} />
-              </TouchableOpacity>
-            ))}
-          </View>
+          <Links links={elements.links} />
         </View>
       )}
     </View>
