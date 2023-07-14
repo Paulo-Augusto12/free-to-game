@@ -97,10 +97,16 @@ export function About({ route }: AboutGameProps) {
             <ExternalLinkCard
               icon={<LinkSimple size={32} color="#E5E5E5" />}
               title="You can see the official page of this game here"
+              onPress={() => {
+                actions.navigateToBrowserPage(selectedGame.oficialPageUrl);
+              }}
             />
             <ExternalLinkCard
               icon={<UsersThree size={32} color="#E5E5E5" />}
               title="Check out some other players opinion"
+              onPress={() =>
+                actions.navigateToBrowserPage(selectedGame.freeToGamePageUrl)
+              }
             />
           </View>
         </View>

@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { StackTypes } from "../../routes/stack.routes";
 import { GameData } from "../../domain/useCases/GamesUseCases/models/GameData";
 import { GAMES_USE_CASES } from "../../di";
+import { Linking } from "react-native";
 
 interface IUseAboutProps {
   gameId: number;
@@ -35,11 +36,23 @@ export function useAbout({ gameId }: IUseAboutProps) {
       const response = await GAMES_USE_CASES.getGameData.execute(gameId);
 
       setGame(response);
-      setGameRequestLoading(false)
+      setGameRequestLoading(false);
     } catch (err) {
       console.log(err);
     } finally {
-      setGameRequestLoading(false)
+      setGameRequestLoading(false);
+    }
+  }
+
+  async function navigateToBrowserPage(url: string) {
+    const supportedUrl = await Linking.canOpenURL(url);
+
+    if (supportedUrl) {
+      try {
+        await Linking.openURL(url);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
@@ -51,13 +64,14 @@ export function useAbout({ gameId }: IUseAboutProps) {
     states: {
       games,
       setGames,
-      gameRequestLoading
+      gameRequestLoading,
       // getGames,
     },
     actions: {
       goBack: () => {
         navigation.goBack();
       },
+      navigateToBrowserPage
     },
     selectedGame: game,
   };

@@ -1,10 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 interface IExternalLinkCardProps {
   title: string;
   icon: JSX.Element;
+  onPress: () => void;
 }
-export function ExternalLinkCard({ icon, title }: IExternalLinkCardProps) {
+export function ExternalLinkCard({
+  icon,
+  title,
+  onPress,
+}: IExternalLinkCardProps) {
   return (
     <View
       style={{
@@ -17,9 +22,15 @@ export function ExternalLinkCard({ icon, title }: IExternalLinkCardProps) {
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Text style={{ color: "#FFFF", fontWeight: "600", fontSize: 24 }}>
-          {title}
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            onPress();
+          }}
+        >
+          <Text style={{ color: "#FFFF", fontWeight: "600", fontSize: 24 }}>
+            {title}
+          </Text>
+        </TouchableOpacity>
         {icon}
       </View>
     </View>
