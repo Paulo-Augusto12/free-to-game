@@ -1,34 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { IGames } from "../../api/interfaces/IGame";
-import { GetGameByGenre } from "../../api/getGameByGenre";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { Linking } from "react-native";
+
+// Navigation
+
 import { StackTypes } from "../../routes/stack.routes";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+//
+
+// Page related files
+
 import { GameData } from "../../domain/useCases/GamesUseCases/models/GameData";
 import { GAMES_USE_CASES } from "../../di";
-import { Linking } from "react-native";
+
+//
+
+// Icons
+
+import { LinkSimple, UsersThree } from "phosphor-react-native";
+
+//
 
 interface IUseAboutProps {
   gameId: number;
 }
 export function useAbout({ gameId }: IUseAboutProps) {
-  const route = useRoute();
-
   const navigation = useNavigation<StackTypes>();
-
-  const [games, setGames] = useState<IGames[]>([]);
 
   const [gameRequestLoading, setGameRequestLoading] = useState(false);
 
   const [game, setGame] = useState<GameData>(new GameData());
 
-  // async function getGames(genre: string) {
-  //   if (route.params) {
-  //     const response = await GetGameByGenre(genre);
-  //     if (response) {
-  //       setGames(response.data);
-  //     }
-  //   }
-  // }
+  const gameLinks = [
+    {
+      text: "You can see the official page of this game here",
+      icon: <LinkSimple size={32} color="#E5E5E5" />,
+      onPress: () => {
+        navigateToBrowserPage(game.oficialPageUrl);
+      },
+    },
+    {
+      text: "Check out some other players opinion",
+      icon: <UsersThree size={32} color="#E5E5E5" />,
+      onPress: () => {
+        navigateToBrowserPage(game.freeToGamePageUrl);
+      },
+    },
+  ];
 
   async function getSelectedGameData() {
     setGameRequestLoading(true);
@@ -37,6 +55,7 @@ export function useAbout({ gameId }: IUseAboutProps) {
 
       setGame(response);
       setGameRequestLoading(false);
+      console.log(game.freeToGamePageUrl)
     } catch (err) {
       console.log(err);
     } finally {
@@ -58,20 +77,20 @@ export function useAbout({ gameId }: IUseAboutProps) {
 
   useEffect(() => {
     getSelectedGameData();
-  }, [game]);
+  }, []);
 
   return {
     states: {
-      games,
-      setGames,
       gameRequestLoading,
-      // getGames,
     },
     actions: {
       goBack: () => {
         navigation.goBack();
       },
-      navigateToBrowserPage
+      navigateToBrowserPage,
+    },
+    elements: {
+      links: gameLinks,
     },
     selectedGame: game,
   };

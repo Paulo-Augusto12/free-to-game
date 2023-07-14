@@ -29,13 +29,12 @@ import { useAbout } from "./useAbout";
 export function About({ route }: AboutGameProps) {
   const { id, name } = route.params;
 
-  const { actions, states, selectedGame } = useAbout({ gameId: id });
+  const { actions, states, selectedGame, elements } = useAbout({ gameId: id });
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          states.setGames([]);
           actions.goBack();
         }}
       >
@@ -94,20 +93,15 @@ export function About({ route }: AboutGameProps) {
           </View>
 
           <View style={{ flexDirection: "column", gap: 18, width: "100%" }}>
-            <ExternalLinkCard
-              icon={<LinkSimple size={32} color="#E5E5E5" />}
-              title="You can see the official page of this game here"
-              onPress={() => {
-                actions.navigateToBrowserPage(selectedGame.oficialPageUrl);
-              }}
-            />
-            <ExternalLinkCard
-              icon={<UsersThree size={32} color="#E5E5E5" />}
-              title="Check out some other players opinion"
-              onPress={() =>
-                actions.navigateToBrowserPage(selectedGame.freeToGamePageUrl)
-              }
-            />
+            {elements.links.map(({ icon, onPress, text }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  onPress();
+                }}
+              >
+                <ExternalLinkCard title={text} icon={icon} />
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
       )}

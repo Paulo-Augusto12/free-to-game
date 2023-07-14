@@ -3,13 +3,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 interface IExternalLinkCardProps {
   title: string;
   icon: JSX.Element;
-  onPress: () => void;
 }
-export function ExternalLinkCard({
-  icon,
-  title,
-  onPress,
-}: IExternalLinkCardProps) {
+export function ExternalLinkCard({ icon, title }: IExternalLinkCardProps) {
   return (
     <View
       style={{
@@ -22,15 +17,9 @@ export function ExternalLinkCard({
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TouchableOpacity
-          onPress={() => {
-            onPress();
-          }}
-        >
-          <Text style={{ color: "#FFFF", fontWeight: "600", fontSize: 24 }}>
-            {title}
-          </Text>
-        </TouchableOpacity>
+        <Text style={{ color: "#FFFF", fontWeight: "600", fontSize: 24 }}>
+          {title}
+        </Text>
         {icon}
       </View>
     </View>
