@@ -21,7 +21,11 @@ export function GameDataHeader({
       }}
     >
       <Image
-        source={{ uri: thumbnail }}
+        source={{
+          uri: thumbnail.trim().length
+            ? thumbnail
+            : "https://www.freetogame.com/assets/images/freetogame-logo.png",
+        }}
         style={{
           width: "100%",
           height: 250,
