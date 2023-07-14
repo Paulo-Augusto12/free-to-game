@@ -45,7 +45,7 @@ export function About({ route }: AboutGameProps) {
         <ActivityIndicator />
       ) : (
         <ScrollView
-          contentContainerStyle={{ alignItems: "center", gap: 48 }}
+          contentContainerStyle={{ alignItems: "center", gap: 18 }}
           style={{ marginBottom: 16 }}
           showsVerticalScrollIndicator={false}
         >
