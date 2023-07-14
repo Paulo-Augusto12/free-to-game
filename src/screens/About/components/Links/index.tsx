@@ -1,6 +1,6 @@
 import { View, TouchableOpacity } from "react-native";
 
-import { ExternalLinkCard } from "../index";
+import { ExternalLinkCard } from "../ExternalLinkCard";
 
 interface ILinkProps {
   links: {
