@@ -8,8 +8,8 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "fill",
+      "backgroundColor": "#14213D"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
