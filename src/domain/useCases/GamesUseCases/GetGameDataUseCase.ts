@@ -2,7 +2,7 @@
 
 import { IGetGameDataRepository } from "../../interfaces/repositories/gamesRepository/IGetGameDataRepository";
 import { IGetGameDataUseCase } from "./abstractions/IGetGameDataUseCase";
-import { GameData } from "./models/GameData";
+import { GameData, GameDetails, MinimumRequirements } from "./models/GameData";
 
 //
 
@@ -22,6 +22,12 @@ export class GetGameDataUseCase implements IGetGameDataUseCase {
         description: response.Data.description,
         oficialPageUrl: response.Data.game_url,
         freeToGamePageUrl: response.Data.freetogame_profile_url,
+        details: {
+          developer: response.Data.developer,
+          publisher: response.Data.publisher,
+          releasedAt: response.Data.release_date,
+        },
+        minrequirements: response.Data.minimum_system_requirements,
       };
       return new GameData(
         data.id,
@@ -31,7 +37,19 @@ export class GetGameDataUseCase implements IGetGameDataUseCase {
         data.shortDescription,
         data.description,
         data.oficialPageUrl,
-        data.freeToGamePageUrl
+        data.freeToGamePageUrl,
+        new GameDetails(
+          data.details.developer,
+          data.details.publisher,
+          data.details.releasedAt
+        ),
+        new MinimumRequirements(
+          data.minrequirements.os,
+          data.minrequirements.processor,
+          data.minrequirements.memory,
+          data.minrequirements.storage,
+          data.minrequirements.storage
+        )
       );
     } catch (err) {
       console.log(err);
