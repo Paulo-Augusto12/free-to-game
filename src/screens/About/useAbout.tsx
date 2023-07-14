@@ -4,7 +4,7 @@ import { Linking } from "react-native";
 // Navigation
 
 import { StackTypes } from "../../routes/stack.routes";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 //
 
@@ -55,7 +55,6 @@ export function useAbout({ gameId }: IUseAboutProps) {
 
       setGame(response);
       setGameRequestLoading(false);
-      console.log(game.freeToGamePageUrl)
     } catch (err) {
       console.log(err);
     } finally {

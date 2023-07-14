@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import { AboutGameProps } from "../../routes/stack.routes";
 
-import { View, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Text,
+} from "react-native";
 
 // Components
 
-import { GameDataHeader, Links } from "./components";
+import { GameDataHeader, Links, Screenshots } from "./components";
 
 //
 
@@ -37,14 +44,32 @@ export function About({ route }: AboutGameProps) {
       {states.gameRequestLoading ? (
         <ActivityIndicator />
       ) : (
-        <View style={{ alignItems: "center", gap: 48 }}>
+        <ScrollView
+          contentContainerStyle={{ alignItems: "center", gap: 48 }}
+          showsVerticalScrollIndicator={false}
+        >
           <GameDataHeader
             name={selectedGame.title}
             thumbnail={selectedGame.thumbnail}
             shortDescription={selectedGame.shortDescription}
+            longDescription={selectedGame.description}
           />
+
+          <Screenshots screenshots={selectedGame.screenshots} />
+
           <Links links={elements.links} />
-        </View>
+
+          <Text
+            style={{
+              color: "#FFFF",
+              marginTop: 6,
+              fontSize: 16,
+              width: "100%",
+            }}
+          >
+            {selectedGame.description}
+          </Text>
+        </ScrollView>
       )}
     </View>
   );
