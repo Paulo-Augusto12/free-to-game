@@ -13,8 +13,21 @@ export function Screenshots({ screenshots }: IScreenShotsProps) {
       contentContainerStyle={{ gap: 16 }}
     >
       {screenshots.map((screenshot, index) => (
-        <View key={index} style={imageStyle}>
-          <Image source={{ uri: screenshot }} style={imageStyle} />
+        <View
+          key={index}
+          style={[
+            imageStyle,
+            {
+              display: screenshot.trim().length ? "flex" : "none",
+              backgroundColor: "#142E68",
+              minHeight: 200,
+            },
+          ]}
+        >
+          <Image
+            source={{ uri: screenshot.trim().length ? screenshot : "" }}
+            style={imageStyle}
+          />
         </View>
       ))}
     </ScrollView>
