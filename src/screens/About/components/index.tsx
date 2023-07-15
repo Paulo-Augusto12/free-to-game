@@ -1,5 +1,7 @@
-export { Links } from './Links'
+export { Links } from "./Links";
 
-export { GameDataHeader } from './GameDataHeader'
+export { GameDataHeader } from "./GameDataHeader";
 
-export  { Screenshots } from './Screenshots'
+export { Screenshots } from "./Screenshots";
+
+export { GameDetails } from "./GameDetails";

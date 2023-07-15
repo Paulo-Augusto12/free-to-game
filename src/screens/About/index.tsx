@@ -12,7 +12,7 @@ import {
 
 // Components
 
-import { GameDataHeader, Links, Screenshots } from "./components";
+import { GameDataHeader, Links, Screenshots, GameDetails } from "./components";
 
 //
 
@@ -45,7 +45,8 @@ export function About({ route }: AboutGameProps) {
         <ActivityIndicator />
       ) : (
         <ScrollView
-          contentContainerStyle={{ alignItems: "center", gap: 48 }}
+          contentContainerStyle={{ alignItems: "center", gap: 18 }}
+          style={{ marginBottom: 16 }}
           showsVerticalScrollIndicator={false}
         >
           <GameDataHeader
@@ -69,6 +70,11 @@ export function About({ route }: AboutGameProps) {
           >
             {selectedGame.description}
           </Text>
+
+          <GameDetails
+            details={selectedGame.details}
+            minimunRequirements={selectedGame.minimunrequirements}
+          />
         </ScrollView>
       )}
     </View>
