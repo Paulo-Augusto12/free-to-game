@@ -41,7 +41,10 @@ export class GetGameDataUseCase implements IGetGameDataUseCase {
         new GameDetails(
           data.details.developer,
           data.details.publisher,
-          data.details.releasedAt
+          data.details.releasedAt.replace(
+            /^(\d{4})-(\d{2})-(\d{2})$/,
+            "$3/$2/$1"
+          )
         ),
         new MinimumRequirements(
           data.minrequirements.os,
