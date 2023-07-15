@@ -9,6 +9,13 @@ import { GameData, GameDetails, MinimumRequirements } from "./models/GameData";
 export class GetGameDataUseCase implements IGetGameDataUseCase {
   constructor(private repository: IGetGameDataRepository) {}
 
+  checkIfDataIsKnown(data: string): string {
+    if (!data.trim().length || data.trim() === "?" || data === undefined) {
+      return `${"We couldn`t find this data, check out the oficial page for more details"}`;
+    }
+    return data;
+  }
+
   async execute(id: number): Promise<GameData> {
     try {
       const response = await this.repository.getGameData(id);
@@ -39,19 +46,19 @@ export class GetGameDataUseCase implements IGetGameDataUseCase {
         data.oficialPageUrl,
         data.freeToGamePageUrl,
         new GameDetails(
-          data.details.developer,
-          data.details.publisher,
+          this.checkIfDataIsKnown(data.details.developer),
+          this.checkIfDataIsKnown(data.details.publisher),
           data.details.releasedAt.replace(
             /^(\d{4})-(\d{2})-(\d{2})$/,
             "$3/$2/$1"
           )
         ),
         new MinimumRequirements(
-          data.minrequirements.os,
-          data.minrequirements.processor,
-          data.minrequirements.memory,
-          data.minrequirements.storage,
-          data.minrequirements.graphics
+          this.checkIfDataIsKnown(data.minrequirements.os),
+          this.checkIfDataIsKnown(data.minrequirements.processor),
+          this.checkIfDataIsKnown(data.minrequirements.memory),
+          this.checkIfDataIsKnown(data.minrequirements.storage),
+          this.checkIfDataIsKnown(data.minrequirements.graphics)
         )
       );
     } catch (err) {
