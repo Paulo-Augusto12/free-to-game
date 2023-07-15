@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 
 // Components
 
@@ -15,9 +21,9 @@ import { gameTags } from "../../api/apiTags";
 export function Home() {
   const { actions, states } = useHome();
   return (
-    <View style={homeStyles.container}>
+    <ScrollView style={homeStyles.container}>
       <AppTitle />
-      <View style={homeStyles.filterContainer}>
+      {/* <View style={homeStyles.filterContainer}>
         <FilterTags
           gameTags={gameTags}
           onTagPress={(item) => {
@@ -31,34 +37,7 @@ export function Home() {
           onChangeText={states.setSearchFilter}
           onSearchIconPress={() => actions.searchGame()}
         />
-      </View>
-
-      {states.isLoading ? (
-        <ActivityIndicator size="large" color="#133C95" />
-      ) : (
-        <View style={{ marginTop: 10 }}>
-          <FlatList
-            style={{ maxHeight: 400 }}
-            numColumns={2}
-            ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
-            columnWrapperStyle={{ gap: 20 }}
-            data={states.games}
-            renderItem={({ item }) => (
-              <GameCard
-                gamePlataform={item.platform}
-                gameTitle={item.title}
-                imageSrc={{
-                  uri: item.thumbnail,
-                }}
-                navigateAction={() => {
-                  actions.navigate(item.id, item.title);
-                }}
-              />
-            )}
-            showsVerticalScrollIndicator={false}
-          />
-        </View>
-      )}
-    </View>
+      </View> */}
+    </ScrollView>
   );
 }
