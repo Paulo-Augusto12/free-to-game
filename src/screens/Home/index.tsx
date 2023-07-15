@@ -3,7 +3,7 @@ import { View, Text, FlatList, ActivityIndicator } from "react-native";
 
 // Components
 
-import { FilterTags, SearchBar } from "./components";
+import { FilterTags, SearchBar, AppTitle } from "./components";
 
 //
 
@@ -16,12 +16,7 @@ export function Home() {
   const { actions, states } = useHome();
   return (
     <View style={homeStyles.container}>
-      <View style={homeStyles.headerContainer}>
-        <Text style={homeStyles.headerTitle}>Free Games</Text>
-        <Text style={homeStyles.headerDescription}>
-          Check out some free games that you might enjoy
-        </Text>
-      </View>
+      <AppTitle />
       <View style={homeStyles.filterContainer}>
         <FilterTags
           gameTags={gameTags}
