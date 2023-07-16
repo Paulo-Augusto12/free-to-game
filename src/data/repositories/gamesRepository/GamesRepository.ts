@@ -16,10 +16,15 @@ import { IGetGameDataRepository } from "../../../domain/interfaces/repositories/
 
 import { AllGamesDTO } from "../../../domain/dto/AllGamesDTO";
 import { GameDataDTO } from "../../../domain/dto/GameDataDTO";
+import { IGetGamesByGenreRepository } from "../../../domain/interfaces/repositories/gamesRepository/IGetGamesByGenreRepository";
+import { GamesByGenreDTO } from "../../../domain/dto/GamesByGenreDTO";
 
 //
 export class GamesRepository
-  implements IGetAllGamesRepository, IGetGameDataRepository
+  implements
+    IGetAllGamesRepository,
+    IGetGameDataRepository,
+    IGetGamesByGenreRepository
 {
   constructor(private httpService: IHttpService) {}
 
@@ -34,6 +39,16 @@ export class GamesRepository
   async getGameData(id: number): Promise<HttpResponse<GameDataDTO>> {
     return await this.httpService.getData(
       `https://www.freetogame.com/api/game?id=${id}`,
+      {},
+      "GET"
+    );
+  }
+
+  async getGamesByGenre(
+    genre: string
+  ): Promise<HttpResponse<GamesByGenreDTO[]>> {
+    return await this.httpService.getData(
+      `https://www.freetogame.com/api/games?category=${genre}`,
       {},
       "GET"
     );
