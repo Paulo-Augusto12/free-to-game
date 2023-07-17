@@ -24,10 +24,12 @@ export class GetGamesByGenreUseCase implements IGetGamesByGenreUseCase {
 
       const data = response.Data;
 
-      return data.map(
-        ({ id, title, thumbnail, platform }) =>
-          new Game(id, title, thumbnail, platform)
-      ).slice(0,20);
+      return data
+        .map(
+          ({ id, title, thumbnail, platform }) =>
+            new Game(id, title, thumbnail, platform)
+        )
+        .slice(0, 20);
     } catch (err) {
       console.log(err);
       throw new Error(JSON.stringify(err));

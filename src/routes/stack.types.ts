@@ -4,4 +4,5 @@ export type StackNavigationTypes = {
     id: number;
     name: string;
   };
+  allGames: undefined;
 };

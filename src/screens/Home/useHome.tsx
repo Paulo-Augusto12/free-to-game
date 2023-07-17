@@ -139,23 +139,25 @@ export function useHome() {
     const x = gameTags.map((tag) => tag.games);
 
     if (!x.some((x) => x.length)) {
-      getGamesBasedOnGenre("mmorpg", setMmoRpgGames);
-      getGamesBasedOnGenre("shooter", setShooterGames);
-      getGamesBasedOnGenre("strategy", setStrategyGames);
-      getGamesBasedOnGenre("moba", setMobaGames);
-      getGamesBasedOnGenre("open-world", setOpenWorldGames);
-      getGamesBasedOnGenre("survival", setSurvivalgames);
-      getGamesBasedOnGenre("pvp", setPvpGames);
-      getGamesBasedOnGenre("zombie", setZombieGames);
-      getGamesBasedOnGenre("first-person", setFirstPersonGames);
-      getGamesBasedOnGenre("third-person", setThirdPersonGames);
-      getGamesBasedOnGenre("battle-royale", setBattleRoyaleGame);
-      getGamesBasedOnGenre("mmo", setMmoGames);
-      getGamesBasedOnGenre("anime", setAnimeGames);
-      getGamesBasedOnGenre("fantasy", setFantasyGames);
-      getGamesBasedOnGenre("fighting", setFigthingGames);
-      getGamesBasedOnGenre("action", setActionGames);
-      getGamesBasedOnGenre("low-spec", setLowSpecGames);
+      Promise.all([
+        getGamesBasedOnGenre("mmorpg", setMmoRpgGames),
+        getGamesBasedOnGenre("shooter", setShooterGames),
+        getGamesBasedOnGenre("strategy", setStrategyGames),
+        getGamesBasedOnGenre("moba", setMobaGames),
+        getGamesBasedOnGenre("open-world", setOpenWorldGames),
+        getGamesBasedOnGenre("survival", setSurvivalgames),
+        getGamesBasedOnGenre("pvp", setPvpGames),
+        getGamesBasedOnGenre("zombie", setZombieGames),
+        getGamesBasedOnGenre("first-person", setFirstPersonGames),
+        getGamesBasedOnGenre("third-person", setThirdPersonGames),
+        getGamesBasedOnGenre("battle-royale", setBattleRoyaleGame),
+        getGamesBasedOnGenre("mmo", setMmoGames),
+        getGamesBasedOnGenre("anime", setAnimeGames),
+        getGamesBasedOnGenre("fantasy", setFantasyGames),
+        getGamesBasedOnGenre("fighting", setFigthingGames),
+        getGamesBasedOnGenre("action", setActionGames),
+        getGamesBasedOnGenre("low-spec", setLowSpecGames),
+      ]);
     }
   }, []);
 
@@ -172,6 +174,9 @@ export function useHome() {
     actions: {
       navigate: (id: number, name: string) => {
         navigation.navigate("about", { id, name });
+      },
+      navigateToAllGamesScreen: () => {
+        navigation.navigate("allGames");
       },
     },
     elements: {
