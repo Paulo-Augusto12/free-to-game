@@ -3,8 +3,9 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     width: 152,
-    height: 180,
+    // height: 180,
     flex: 1,
+    minHeight: 180
   },
   imageWrapper: {
     // width: 152,
