@@ -1,6 +1,9 @@
 import { View, Text, Image } from "react-native";
 
-export function AppTitle() {
+interface IAppTitleProps {
+  backgroundImageSrc: string;
+}
+export function AppTitle({ backgroundImageSrc }: IAppTitleProps) {
   return (
     <View
       style={{
@@ -10,6 +13,10 @@ export function AppTitle() {
         backgroundColor: "#142E68",
       }}
     >
+      <Image
+        source={{ uri: backgroundImageSrc }}
+        style={{ width: "100%", height: 200, borderRadius: 8, opacity: 0.5 }}
+      />
       <View
         style={{
           flexDirection: "column",

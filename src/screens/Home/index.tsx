@@ -4,12 +4,12 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
-  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 
 // Components
 
-import { FilterTags, SearchBar, AppTitle } from "./components";
+import { AppTitle } from "./components";
 
 //
 
@@ -22,7 +22,9 @@ export function Home() {
   return (
     <FlatList
       style={homeStyles.container}
-      ListHeaderComponent={() => <AppTitle />}
+      ListHeaderComponent={() => (
+        <AppTitle backgroundImageSrc="https://www.freetogame.com/assets/images/freetogame-logo.png" />
+      )}
       data={elements.gameTags}
       renderItem={({ item }) => (
         <View
@@ -63,10 +65,53 @@ export function Home() {
                 )}
               </>
             )}
+            ListFooterComponent={() => (
+              <TouchableOpacity
+                style={{
+                  width: 152,
+                  flex: 1,
+                  minHeight: 180,
+                  marginBottom: 16,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#142E68",
+                  borderRadius: 15,
+                  marginLeft: 8,
+                }}
+                onPress={() => {}}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    color: "#e5e5e5",
+                    fontSize: 18,
+                    textAlign: "center",
+                  }}
+                >
+                  See more {item.tagTitle} games
+                </Text>
+              </TouchableOpacity>
+            )}
             horizontal
             ItemSeparatorComponent={() => <View style={{ padding: 8 }} />}
           />
         </View>
+      )}
+      ListFooterComponent={() => (
+        <TouchableOpacity style={{}}>
+          <View style={{}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#e5e5e5",
+                textAlign: "center",
+              }}
+            >
+              Check out all games
+            </Text>
+          </View>
+        </TouchableOpacity>
       )}
     />
   );

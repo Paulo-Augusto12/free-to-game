@@ -5,7 +5,8 @@ export const styles = StyleSheet.create({
     width: 152,
     // height: 180,
     flex: 1,
-    minHeight: 180
+    minHeight: 180,
+    marginBottom: 16
   },
   imageWrapper: {
     // width: 152,
