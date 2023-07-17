@@ -8,267 +8,161 @@ import { StackTypes } from "../../routes/stack.routes";
 export function useHome() {
   const [games, setGames] = useState<Game[]>([]);
   const [selectedGame, setSelectedGame] = useState<Game>();
-  const [searchFilter, setSearchFilter] = useState("");
-  const [gameGenre, setGameGenre] = useState("");
   const [status, setStatus] = useState<string | undefined>("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigation = useNavigation<StackTypes>();
+  const [mmoRpgGames, setMmoRpgGames] = useState<Game[]>([]);
+  const [shooterGames, setShooterGames] = useState<Game[]>([]);
+  const [strategyGames, setStrategyGames] = useState<Game[]>([]);
+  const [mobaGames, setMobaGames] = useState<Game[]>([]);
+  const [openWorldGames, setOpenWorldGames] = useState<Game[]>([]);
+  const [survivalGames, setSurvivalgames] = useState<Game[]>([]);
+  const [pvpGames, setPvpGames] = useState<Game[]>([]);
+  const [zombieGames, setZombieGames] = useState<Game[]>([]);
+  const [firstPersonGames, setFirstPersonGames] = useState<Game[]>([]);
+  const [thirdPersonGames, setThirdPersonGames] = useState<Game[]>([]);
+  const [battleRoyaleGames, setBattleRoyaleGame] = useState<Game[]>([]);
+  const [mmoGames, setMmoGames] = useState<Game[]>([]);
+  const [animeGames, setAnimeGames] = useState<Game[]>([]);
+  const [fantasyGames, setFantasyGames] = useState<Game[]>([]);
+  const [fightingGames, setFigthingGames] = useState<Game[]>([]);
+  const [actionGames, setActionGames] = useState<Game[]>([]);
+  const [lowSpecGames, setLowSpecGames] = useState<Game[]>([]);
 
+  const navigation = useNavigation<StackTypes>();
 
   const gameTags = [
     {
-      tagTitle: "all",
-      id: 1,
-    },
-    {
       tagTitle: "mmorpg",
       id: 2,
+      games: mmoRpgGames,
     },
     {
       tagTitle: "shooter",
       id: 3,
+      games: shooterGames,
     },
     {
       tagTitle: "strategy",
       id: 4,
+      games: strategyGames,
     },
     {
       tagTitle: "moba",
       id: 5,
-    },
-    {
-      tagTitle: "racing",
-      id: 6,
-    },
-    {
-      tagTitle: "sports",
-      id: 7,
-    },
-    {
-      tagTitle: "social",
-      id: 8,
-    },
-    {
-      tagTitle: "sandbox",
-      id: 9,
+      games: mobaGames,
     },
     {
       tagTitle: "open-world",
       id: 10,
+      games: openWorldGames,
     },
     {
       tagTitle: "survival",
       id: 11,
+      games: survivalGames,
     },
     {
       tagTitle: "pvp",
       id: 12,
-    },
-    {
-      tagTitle: "pve",
-      id: 13,
-    },
-    {
-      tagTitle: "pixel",
-      id: 14,
-    },
-    {
-      tagTitle: "voxel",
-      id: 15,
+      games: pvpGames,
     },
     {
       tagTitle: "zombie",
       id: 16,
-    },
-    {
-      tagTitle: "turn-based",
-      id: 17,
+      games: zombieGames,
     },
     {
       tagTitle: "first-person",
       id: 18,
+      games: firstPersonGames,
     },
     {
       tagTitle: "third-person",
       id: 19,
-    },
-    {
-      tagTitle: "top-down",
-      id: 20,
-    },
-    {
-      tagTitle: "tank",
-      id: 21,
-    },
-    {
-      tagTitle: "space",
-      id: 22,
-    },
-  
-    {
-      tagTitle: "sailing",
-      id: 23,
-    },
-    {
-      tagTitle: "side-scroller",
-      id: 24,
-    },
-    {
-      tagTitle: "permadeath",
-      id: 25,
-    },
-    {
-      tagTitle: "card",
-      id: 26,
+      games: thirdPersonGames,
     },
     {
       tagTitle: "battle-royale",
       id: 27,
+      games: battleRoyaleGames,
     },
     {
       tagTitle: "mmo",
       id: 28,
-    },
-    {
-      tagTitle: "mmofps",
-      id: 29,
-    },
-    {
-      tagTitle: "mmotps",
-      id: 30,
-    },
-    {
-      tagTitle: "3d",
-      id: 31,
-    },
-    {
-      tagTitle: "2d",
-      id: 32,
+      games: mmoGames,
     },
     {
       tagTitle: "anime",
       id: 33,
+      games: animeGames,
     },
     {
       tagTitle: "fantasy",
       id: 34,
-    },
-    {
-      tagTitle: "sci-fi",
-      id: 35,
+      games: fantasyGames,
     },
     {
       tagTitle: "fighting",
       id: 36,
-    },
-    {
-      tagTitle: "action-rpg",
-      id: 37,
+      games: fightingGames,
     },
     {
       tagTitle: "action",
       id: 38,
-    },
-    {
-      tagTitle: "military",
-      id: 39,
-    },
-    {
-      tagTitle: "martial-arts",
-      id: 40,
-    },
-    {
-      tagTitle: "flight",
-      id: 41,
+      games: actionGames,
     },
     {
       tagTitle: "low-spec",
       id: 42,
-    },
-    {
-      tagTitle: "tower-defense",
-      id: 43,
-    },
-    {
-      tagTitle: "horror",
-      id: 44,
-    },
-    {
-      tagTitle: "mmorts",
-      id: 45,
+      games: lowSpecGames,
     },
   ];
-  
 
-
-  async function searchGameByCategory() {
+  async function getGamesBasedOnGenre(
+    genre: string,
+    setGameState: (value: React.SetStateAction<Game[]>) => void
+  ) {
     setIsLoading(true);
     try {
-      const response = await GetGameByGenre(gameGenre);
-      if (response) {
-        setStatus(response.statusText);
-        if (!status?.trim()) {
-          setGames(response.data);
-        }
-      }
+      const response = await GAMES_USE_CASES.getGamesByGenre.execute(genre);
+
+      setGameState(response);
     } catch (err) {
-      console.log(err);
+      console.log(err, "ui");
     } finally {
       setIsLoading(false);
     }
   }
 
-  // async function getApiGames() {
-  //   setIsLoading(true);
-  //   try {
-  //     const data = await GAMES_USE_CASES.getAllGames.execute();
-  //     setGames(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
+  useEffect(() => {
+    const x = gameTags.map((tag) => tag.games);
 
-  // async function searchGame() {
-  //   const wantedGame = games.filter((game) =>
-  //     game.title.includes(searchFilter)
-  //   );
-  //   if (searchFilter.trim() && wantedGame) {
-  //     setGames(wantedGame);
-  //   } else {
-  //     getApiGames();
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getApiGames();
-  //   console.log(selectedGame);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (gameGenre.trim()) {
-  //     searchGameByCategory();
-  //   }
-  //   if (gameGenre.trim() === "all") {
-  //     getApiGames();
-  //   }
-  // }, [gameGenre]);
-
-  // useEffect(() => {
-  //   if (!searchFilter.trim()) {
-  //     searchGame();
-  //   }
-  // }, [searchFilter]);
+    if (!x.some((x) => x.length)) {
+      getGamesBasedOnGenre("mmorpg", setMmoRpgGames);
+      getGamesBasedOnGenre("shooter", setShooterGames);
+      getGamesBasedOnGenre("strategy", setStrategyGames);
+      getGamesBasedOnGenre("moba", setMobaGames);
+      getGamesBasedOnGenre("open-world", setOpenWorldGames);
+      getGamesBasedOnGenre("survival", setSurvivalgames);
+      getGamesBasedOnGenre("pvp", setPvpGames);
+      getGamesBasedOnGenre("zombie", setZombieGames);
+      getGamesBasedOnGenre("first-person", setFirstPersonGames);
+      getGamesBasedOnGenre("third-person", setThirdPersonGames);
+      getGamesBasedOnGenre("battle-royale", setBattleRoyaleGame);
+      getGamesBasedOnGenre("mmo", setMmoGames);
+      getGamesBasedOnGenre("anime", setAnimeGames);
+      getGamesBasedOnGenre("fantasy", setFantasyGames);
+      getGamesBasedOnGenre("fighting", setFigthingGames);
+      getGamesBasedOnGenre("action", setActionGames);
+      getGamesBasedOnGenre("low-spec", setLowSpecGames);
+    }
+  }, []);
 
   return {
     states: {
       games,
       setGames,
-      searchFilter,
-      setSearchFilter,
-      setGameGenre,
       status,
       setStatus,
       selectedGame,
@@ -276,11 +170,12 @@ export function useHome() {
       isLoading,
     },
     actions: {
-      // searchGame,
-      searchGameByCategory,
       navigate: (id: number, name: string) => {
         navigation.navigate("about", { id, name });
       },
+    },
+    elements: {
+      gameTags,
     },
   };
 }

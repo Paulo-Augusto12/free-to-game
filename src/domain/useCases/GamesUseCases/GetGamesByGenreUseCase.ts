@@ -27,7 +27,7 @@ export class GetGamesByGenreUseCase implements IGetGamesByGenreUseCase {
       return data.map(
         ({ id, title, thumbnail, platform }) =>
           new Game(id, title, thumbnail, platform)
-      );
+      ).slice(0,20);
     } catch (err) {
       console.log(err);
       throw new Error(JSON.stringify(err));
