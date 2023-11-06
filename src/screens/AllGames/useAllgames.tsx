@@ -1,8 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Game } from "../../domain/useCases/GamesUseCases/models/Game";
 import { GAMES_USE_CASES } from "../../di";
+import { Game } from "../../domain/useCases/GamesUseCases/models/Game";
 
 export function useAllGames() {
+  const navigation = useNavigation()
   const [games, setGames] = useState<Game[]>([]);
 
   const [isListLoading, setIsListLoading] = useState<boolean>();
@@ -24,5 +26,13 @@ export function useAllGames() {
     states: {
       games,
     },
+    actions: {
+      goBack(){
+        navigation.goBack()
+      },
+      navigate(id: number, name: string){
+        navigation.navigate("about", { id, name });
+      }
+    }
   };
 }

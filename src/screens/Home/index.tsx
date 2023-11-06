@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  View,
-  Text,
-  FlatList,
   ActivityIndicator,
+  FlatList,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 // Components
@@ -13,11 +13,11 @@ import { AppTitle } from "./components";
 
 //
 
+import GameCard from "../../components/gameCard";
 import { homeStyles } from "./style";
 import { useHome } from "./useHome";
-import { GameCard } from "../../components/gameCard";
 
-export function Home() {
+function Home() {
   const { actions, states, elements } = useHome();
   return (
     <FlatList
@@ -100,26 +100,29 @@ export function Home() {
             )}
             horizontal
             ItemSeparatorComponent={() => <View style={{ padding: 8 }} />}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       )}
       ListFooterComponent={() => (
         <TouchableOpacity
-          style={{}}
+          style={{borderWidth: 1, width: '100%', padding: 4, borderRadius: 6, marginBottom: 8, borderColor: '#142E68'}}
           onPress={() => actions.navigateToAllGamesScreen()}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: "bold",
               color: "#e5e5e5",
               textAlign: "center",
             }}
           >
-            Check out all games
+            Haven't found a game yet ? Check out here all Games
           </Text>
         </TouchableOpacity>
       )}
     />
   );
 }
+
+export default React.memo(Home);

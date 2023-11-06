@@ -1,9 +1,10 @@
+import React from 'react';
 import {
-  View,
-  Text,
   Image,
   ImageSourcePropType,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { styles } from "./style";
 interface IGameCardProps {
@@ -12,7 +13,7 @@ interface IGameCardProps {
   gamePlataform: string;
   navigateAction: () => void;
 }
-export function GameCard({
+function GameCard({
   imageSrc,
   gameTitle,
   gamePlataform,
@@ -30,3 +31,5 @@ export function GameCard({
     </TouchableOpacity>
   );
 }
+
+export default React.memo(GameCard)

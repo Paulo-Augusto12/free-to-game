@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 // Screens
 
-import { Home } from "../screens/Home";
+import  Home  from "../screens/Home";
 import { About } from "../screens/About";
 import { AllGames } from "../screens/AllGames";
 
